@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IS_NULL | Премиальный ресейл</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+<a class="skip-link" href="#main-content">Перейти к контенту</a>
+
+<header class="topbar">
+  <div class="container topbar-inner">
+    <button class="icon-button mobile-only" id="mobileMenuButton" aria-expanded="false" aria-controls="primaryNav">
+      <span aria-hidden="true">☰</span>
+      <span class="sr-only">Открыть меню</span>
+    </button>
+    <button class="brand brand-button" data-view="home" aria-label="Перейти на главную">IS_NULL</button>
+    <nav id="primaryNav" class="primary-nav" aria-label="Основная навигация">
+      <button class="nav-link active" data-view="home">Главная</button>
+      <button class="nav-link" data-view="catalog">Каталог</button>
+      <button class="nav-link" data-view="orders">Заказы</button>
+      <button class="nav-link" data-view="profile">Кабинет</button>
+    </nav>
+    <div class="mode-switch" role="tablist" aria-label="Режим интерфейса">
+      <button class="mode-switch-btn active" id="clientModeBtn" role="tab" aria-selected="true" data-mode="client">Клиент</button>
+      <button class="mode-switch-btn" id="adminModeBtn" role="tab" aria-selected="false" data-mode="admin">Админ</button>
+    </div>
+    <div class="topbar-actions">
+      <button class="icon-button" id="cartButton" data-view="cart">
+        Корзина <span id="cartCount" class="badge">0</span>
+      </button>
+      <span class="cart-toast" id="cartToast" aria-live="polite">Добавлено в корзину</span>
+    </div>
+  </div>
+</header>
+
+<main id="main-content">
+  <section class="view active" id="homeView" aria-labelledby="homeTitle">
+    <div class="hero container">
+      <p class="eyebrow">Весенняя подборка</p>
+      <h1 id="homeTitle">АРХИВНАЯ РОСКОШЬ.</h1>
+      <p class="lead">Курируемая подборка pre-owned вещей от ведущих домов моды. Акцент на редкие архивные модели и подтвержденную подлинность.</p>
+    </div>
+
+    <section class="container section">
+      <div class="section-head">
+        <h2>КУРАТОРСКИЕ БРЕНДЫ</h2>
+      </div>
+      <ul class="brand-grid" aria-label="Бренды">
+        <li>PRADA</li><li>HERMES</li><li>CHANEL</li><li>CELINE</li><li>GUCCI</li>
+      </ul>
+    </section>
+
+    <section class="container section">
+      <div class="section-head">
+        <h2>НОВЫЕ ПОСТУПЛЕНИЯ</h2>
+        <button class="btn btn-ghost" data-view="catalog">Смотреть все</button>
+      </div>
+      <div class="product-grid" id="featuredGrid"></div>
+    </section>
+  </section>
+
+  <section class="view" id="catalogView" aria-labelledby="catalogTitle">
+    <div class="container section">
+      <div class="section-head">
+        <h1 id="catalogTitle">Каталог</h1>
+      </div>
+      <form class="filters" id="catalogFilters">
+        <label>
+          Бренд
+          <select id="brandFilter">
+            <option value="all">Все бренды</option>
+          </select>
+        </label>
+        <label>
+          Состояние
+          <select id="conditionFilter">
+            <option value="all">Любое</option>
+            <option value="Pristine">Pristine</option>
+            <option value="Excellent">Excellent</option>
+            <option value="Very Good">Very Good</option>
+          </select>
+        </label>
+        <label>
+          Сортировка
+          <select id="sortFilter">
+            <option value="featured">По умолчанию</option>
+            <option value="priceAsc">Цена: по возрастанию</option>
+            <option value="priceDesc">Цена: по убыванию</option>
+          </select>
+        </label>
+      </form>
+      <div class="product-grid" id="catalogGrid"></div>
+    </div>
+  </section>
+
+  <section class="view" id="productView" aria-labelledby="productTitle">
+    <div class="container product-detail" id="productDetail"></div>
+  </section>
+
+  <section class="view" id="cartView" aria-labelledby="cartTitle">
+    <div class="container section">
+      <h1 id="cartTitle">Корзина и оформление</h1>
+      <div class="checkout-layout">
+        <section>
+          <h2>Корзина</h2>
+          <div id="cartItems"></div>
+        </section>
+        <aside class="summary-card">
+          <h2>Сводка заказа</h2>
+          <dl id="checkoutSummary"></dl>
+          <form id="checkoutForm">
+            <h3>Адрес доставки</h3>
+            <label>Имя получателя <input required type="text"></label>
+            <label>Адрес <input required type="text"></label>
+            <label>Город <input required type="text"></label>
+            <label>Почтовый индекс <input required type="text"></label>
+            <h3>Оплата</h3>
+            <label>Номер карты <input required type="text" placeholder="0000 0000 0000 0000"></label>
+            <label>Срок действия <input required type="text" placeholder="MM/YY"></label>
+            <label>CVV <input required type="password" placeholder="123"></label>
+            <button class="btn btn-primary full" id="authorizeButton" type="submit">Подтвердить оплату</button>
+          </form>
+          <p class="muted">Нажимая кнопку, вы принимаете условия сервиса. Все покупки застрахованы на полную стоимость.</p>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <section class="view" id="ordersView" aria-labelledby="ordersTitle">
+    <div class="container section">
+      <h1 id="ordersTitle">История заказов</h1>
+      <div id="ordersList" class="orders-list"></div>
+    </div>
+  </section>
+
+  <section class="view" id="profileView" aria-labelledby="profileTitle">
+    <div class="container section profile">
+      <h1 id="profileTitle">Личный кабинет</h1>
+      <article class="card">
+        <h2>Профиль</h2>
+        <p>Elena Holland</p>
+        <p class="muted">elena@holand.studio</p>
+      </article>
+      <article class="card">
+        <h2>Доставка и сохраненные адреса</h2>
+        <p>London, Mayfair, Bruton St. 34</p>
+      </article>
+      <button class="btn btn-secondary" data-view="orders">Перейти к заказам</button>
+    </div>
+  </section>
+
+  <section class="view" id="adminView" aria-labelledby="adminTitle">
+    <div class="container section">
+      <h1 id="adminTitle">Админ-панель</h1>
+      <div class="admin-tabs" role="tablist" aria-label="Админ разделы">
+        <button class="admin-tab active" role="tab" data-admin="dashboard">Аналитика</button>
+        <button class="admin-tab" role="tab" data-admin="products">Товары</button>
+        <button class="admin-tab" role="tab" data-admin="orders">Заказы</button>
+      </div>
+
+      <div id="adminDashboard" class="admin-panel active">
+        <div class="kpi-grid" id="kpiGrid"></div>
+        <div class="card">
+          <h2>Лидеры брендов</h2>
+          <ul class="simple-list" id="brandLeaders"></ul>
+        </div>
+      </div>
+
+      <div id="adminProducts" class="admin-panel">
+        <div class="section-head">
+          <h2>Управление карточками товаров</h2>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+            <tr><th>ID</th><th>Название</th><th>Бренд</th><th>Размер</th><th>Цена</th><th>Состояние</th></tr>
+            </thead>
+            <tbody id="productsTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div id="adminOrders" class="admin-panel">
+        <div class="section-head">
+          <h2>Список заказов</h2>
+          <select id="adminStatusFilter" aria-label="Фильтр статуса заказа">
+            <option value="all">Все статусы</option>
+            <option value="Processing">В обработке</option>
+            <option value="Shipped">Отправлено</option>
+            <option value="Delivered">Доставлено</option>
+          </select>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+            <tr><th>ID заказа</th><th>Клиент</th><th>Дата</th><th>Сумма</th><th>Статус</th><th>Доставка</th></tr>
+            </thead>
+            <tbody id="adminOrdersBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script src="./app.js"></script>
+</body>
+</html>
